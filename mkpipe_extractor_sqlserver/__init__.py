@@ -32,6 +32,9 @@ class SqlserverExtractor:
         self.settings.driver_name = self.driver_name
         self.jdbc_url = f'jdbc:{self.driver_name}://{self.host}:{self.port};databaseName={self.database};user={self.username};password={self.password};encrypt=false;trustServerCertificate=false'
 
+        self.table = config['table']
+        self.pass_on_error = config.get('pass_on_error', None)
+        
         config = load_config()
         connection_params = config['settings']['backend']
         db_type = connection_params['database_type']

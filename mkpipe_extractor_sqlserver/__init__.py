@@ -1,17 +1,18 @@
-from mkpipe.functions_spark import BaseExtractor
+from urllib.parse import unquote
+
+from mkpipe.spark import JdbcExtractor
 
 
-class SqlserverExtractor(BaseExtractor):
-    def __init__(self, config, settings):
-        super().__init__(
-            config,
-            settings,
-            driver_name='sqlserver',
-            driver_jdbc='com.microsoft.sqlserver.jdbc.SQLServerDriver',
-        )
+class SqlserverExtractor(JdbcExtractor, variant='sqlserver'):
+    driver_name = 'sqlserver'
+    driver_jdbc = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
 
     def build_jdbc_url(self):
-        return f'jdbc:{self.driver_name}://{self.host}:{self.port};databaseName={self.database};user={self.username};password={self.password};encrypt=false;trustServerCertificate=false'
-
-    def build_passord(self):
-        return str(self.connection_params['password'])
+        password = unquote(self.password)
+        return (
+            f'jdbc:{self.driver_name}://{self.host}:{self.port}'
+            f';databaseName={self.database}'
+            f';user={self.username}'
+            f';password={password}'
+            f';encrypt=false;trustServerCertificate=false'
+        )

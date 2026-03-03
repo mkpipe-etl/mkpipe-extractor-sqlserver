@@ -2,6 +2,8 @@ from urllib.parse import unquote
 
 from mkpipe.spark import JdbcExtractor
 
+JAR_PACKAGES = ['com.microsoft.sqlserver:mssql-jdbc:12.8.1.jre11']
+
 
 class SqlserverExtractor(JdbcExtractor, variant='sqlserver'):
     driver_name = 'sqlserver'

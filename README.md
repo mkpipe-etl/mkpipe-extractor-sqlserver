@@ -78,7 +78,7 @@ Set `partitions_column` and `partitions_count` for parallel JDBC reads. Partitio
 | `name` | string | required | SQL Server table name (include schema: `dbo.events`) |
 | `target_name` | string | required | Destination table name |
 | `replication_method` | `full` / `incremental` | `full` | Replication strategy |
-| `iterate_column` | string | — | Column used for incremental watermark |
+| `iterate_column` | string or list | — | Column(s) for incremental watermark. String for single column or SQL expression, list for multi-column OR logic |
 | `iterate_column_type` | `int` / `datetime` | — | Type of `iterate_column` |
 | `partitions_column` | string | same as `iterate_column` | Column to split JDBC reads on |
 | `partitions_count` | int | `10` | Number of parallel JDBC partitions |
